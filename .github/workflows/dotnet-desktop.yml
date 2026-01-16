@@ -1,4 +1,4 @@
-name: BL.Qatar.QsipGenerator CI
+name: Product Catalog CI
 permissions:
   contents: write
   id-token: write
