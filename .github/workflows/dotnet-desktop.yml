@@ -1,6 +1,14 @@
 
 name: Catalog web api CI
 
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch: 
   push:
