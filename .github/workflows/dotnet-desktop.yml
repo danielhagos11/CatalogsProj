@@ -21,7 +21,7 @@ jobs:
         run: dotnet restore ./Catalogs.sln
         
       - name: Build
-        run: dotnet build./Catalogs.sln --configuration Release --no-restore
+        run: dotnet build ./Catalogs.sln --configuration Release --no-restore
 
       - name: Test
         run: dotnet test ./Catalogs.sln --configuration Release --no-restore --no-build
