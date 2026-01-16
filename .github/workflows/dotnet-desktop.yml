@@ -18,7 +18,7 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Restore
-        run: dotnet restor ./Catalogs.sln
+        run: dotnet restore ./Catalogs.sln
         
       - name: Build
         run: dotnet build./Catalogs.sln --configuration Release --no-restore
