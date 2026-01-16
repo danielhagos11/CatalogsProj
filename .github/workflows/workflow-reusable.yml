@@ -16,20 +16,23 @@ on:
       - development
       - master
 env:
-  DOTNET_VERSION: 8.0.x
+  PUBLISH_DIR: publish
+  PROJ_WORK_DIR: Catalogs
+  PROJ_FILE_NAME: Catalogs.csproj
+  ENABLE_TEST: true
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
       - name: Restore
         run: dotnet restore ./Catalogs.sln
         
       - name: Build
-        run: dotnet build ./Catalogs.sln --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test ./Catalogs.sln --configuration Release --no-restore --no-build
+        uses: danielhagos11/DevOps/dotnet-build@c30137135f2360757dffe9bd032c27d64aa529f2
+        with:
+          proj_work_dir: ${{ env.PROJ_WORK_DIR }}
+          proj_file_name: ${{ env.PROJ_FILE_NAME }}
+          enable_test: ${{ env.ENABLE_TEST }}
