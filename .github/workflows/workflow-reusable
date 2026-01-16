@@ -1,0 +1,37 @@
+
+name: Catalog web api CI
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch: 
+  push:
+    branches:
+      - master
+env:
+  PUBLISH_DIR: publish
+  PROJ_WORK_DIR: Catalogs
+  PROJ_FILE_NAME: Catalogs.csproj
+  ENABLE_TEST: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Restore
+        run: dotnet restore ./Catalogs.sln
+        
+      - name: Build
+        uses: danielhagos11/DevOps/dotnet-build@main
+        with:
+          proj_work_dir: ${{ env.PROJ_WORK_DIR }}
+          proj_file_name: ${{ env.PROJ_FILE_NAME }}
+          enable_test: ${{ env.ENABLE_TEST }}
