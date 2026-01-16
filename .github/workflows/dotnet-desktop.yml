@@ -1,28 +1,20 @@
+name: BL.Qatar.QsipGenerator CI
+permissions:
+  contents: write
+  id-token: write
 
-name: Catalog web api CI
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
-  workflow_dispatch: 
   push:
     branches:
       - development
       - master
-env:
-  DOTNET_VERSION: 8.0.x
+
+  workflow_dispatch:
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Restore
-        run: dotnet restore ./Catalogs.sln
-        
-      - name: Build
-        run: dotnet build ./Catalogs.sln --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test ./Catalogs.sln --configuration Release --no-restore --no-build
-
+  workflow:
+    uses: ./.github/workflows/workflow-reusable.yml
