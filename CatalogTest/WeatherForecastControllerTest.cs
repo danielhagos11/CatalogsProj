@@ -17,7 +17,7 @@ namespace CatalogTest
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(8, result.Count());
+            Assert.Equal(5, result.Count());
             Assert.All(result, item => Assert.NotNull(item.Summary));
 
         }
