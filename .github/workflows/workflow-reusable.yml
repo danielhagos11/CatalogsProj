@@ -63,32 +63,3 @@ jobs:
           proj_work_dir: ${{ env.PROJ_WORK_DIR }}
           proj_file_name: ${{ env.PROJ_FILE_NAME }}
           enable_test: ${{ env.ENABLE_TEST }}
-          publish_args: -p:PublishSingleFile=true -p:PublishReadyToRun=true
-
-      - name: Upload publish artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ needs.semver.outputs.version }}
-          path: ${{ github.workspace }}/${{ env.PUBLISH_DIR }}
-          retention-days: 60
-
-  publish:
-    runs-on: ubuntu-latest
-    needs: [semver, build]
-    steps:
-      - name: Fetch actions
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: ${{ needs.semver.outputs.version }}*
-          path: ${{ github.workspace }}/artifact
-
-      - name: Zip folders
-        uses: danielhagos11/DevOps/zip-folders@c30137135f2360757dffe9bd032c27d64aa529f2
-        with:
-          working_directory: ${{ github.workspace }}/artifact
