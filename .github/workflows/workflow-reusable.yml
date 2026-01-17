@@ -24,7 +24,6 @@ on:
         required: true
 
 env:
-  PUBLISH_DIR: publish
   PROJ_WORK_DIR: Catalogs
   PROJ_FILE_NAME: Catalogs.csproj
   ENABLE_TEST: true
