@@ -1,24 +1,21 @@
-name: Product Catalog CI
-
+name: Catalog CI
 permissions:
   contents: write
   id-token: write
 
 concurrency:
-  group: product-catalog-ci
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
-  pull_request:
+  push:
     branches:
       - development
       - master
-    types:
-      - closed
+      - feature/**
 
   workflow_dispatch:
 
 jobs:
-  build:
-    if: github.event.pull_request.merged == true
+  workflow:
     uses: ./.github/workflows/workflow-reusable.yml
