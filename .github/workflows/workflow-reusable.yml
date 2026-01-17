@@ -12,16 +12,16 @@ on:
         required: false
       AD_CLIENT_ID:
         description: 'Azure Enterprise Directory (tenant) ID'
-        required: true
+        required: false
       ADO_ORG_NAME:
         description: 'Azure DevOps Organization Name'
-        required: true
+        required: false
       ADO_PROJECT_NAME:
         description: 'Azure DevOps Project name'
-        required: true
+        required: false
       ADO_FEED_NAME:
         description: 'Azure DevOps Feed name'
-        required: true
+        required: false
 
 env:
   PROJ_WORK_DIR: Catalogs
