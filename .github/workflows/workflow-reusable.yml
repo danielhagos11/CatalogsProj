@@ -30,26 +30,10 @@ env:
   ENABLE_TEST: true
 
 jobs:
-  semver:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.generate-sem-ver.outputs.version }}
-      branch_name: ${{ steps.generate-sem-ver.outputs.branch_name }}
-      pkg_description: ${{ steps.generate-sem-ver.outputs.pkg_description }}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github
-            ${{ env.PROJ_WORK_DIR }}/${{ env.PROJ_FILE_NAME }}
-
-      - name: Generate semantic version
-        id: generate-sem-ver
-        uses: danielhagos11/DevOps/dotnet-build@main
-        with:       
-          version_file: ${{ env.PROJ_WORK_DIR }}/${{ env.PROJ_FILE_NAME }}
-
+     
   build:
     runs-on: ubuntu-latest
     needs: [semver]
