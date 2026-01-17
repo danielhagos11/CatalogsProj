@@ -8,7 +8,7 @@ namespace Catalogs.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chillyyyyy", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching","Rainy"
+            "Freezing", "Bracinggg", "Chillyyyyy", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching","Rainy"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
