@@ -30,14 +30,10 @@ env:
   ENABLE_TEST: true
 
 jobs:
-
-    steps:
-      - uses: actions/checkout@v4
-     
+  
   build:
     runs-on: ubuntu-latest
-    needs: [semver]
-
+    
     steps:
       - uses: actions/checkout@v4
 
