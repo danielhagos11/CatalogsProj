@@ -1,7 +1,7 @@
 name: Catalog CI
 permissions:
   contents: write
-  id-token: none
+  id-token: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
