@@ -1,0 +1,22 @@
+name: Catalog CI
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - development
+      - main
+      - sprint/**
+
+  workflow_dispatch:
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/workflow-reusable.yml
+  
