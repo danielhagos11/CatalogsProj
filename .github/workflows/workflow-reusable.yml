@@ -22,6 +22,8 @@ on:
       ADO_FEED_NAME:
         description: 'Azure DevOps Feed name'
         required: false
+      AZURE_WEBAPP_PUBLISH_PROFILE:
+        required: true
     inputs:
       mode:
         type: string
