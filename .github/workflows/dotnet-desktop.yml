@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-name: Product Catalog CI
-permissions:
-  contents: write
-  id-token: none
-=======
+
 name: Catalog CI
 permissions:
   contents: write
   id-token: write
->>>>>>> development
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,19 +12,10 @@ on:
   push:
     branches:
       - master
-<<<<<<< HEAD
 
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  build:
-=======
-      - feature/**
-
-  workflow_dispatch:
-
-jobs:
   workflow:
->>>>>>> development
     uses: ./.github/workflows/workflow-reusable.yml
