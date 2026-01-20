@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Catalog CI
 permissions:
   contents: write
@@ -20,3 +21,40 @@ jobs:
   workflow:
     uses: ./.github/workflows/workflow-reusable.yml
   
+=======
+name: PR Check
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [development, master]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJ_WORK_DIR: Catalogs
+  PROJ_FILE_NAME: Catalogs.csproj
+  ENABLE_TEST: true
+  ENABLE_PUBLISH: false
+
+jobs:
+  build:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        uses: danielhagos11/DevOps/dotnet-build@main
+        with:
+          proj_work_dir: ${{ env.PROJ_WORK_DIR }}
+          proj_file_name: ${{ env.PROJ_FILE_NAME }}
+          enable_test: ${{ env.ENABLE_TEST }}
+          publish_args: -p:PublishSingleFile=true -p:PublishReadyToRun=true
+          enable_publish: ${{ env.ENABLE_PUBLISH }}
+>>>>>>> development

@@ -1,0 +1,44 @@
+name: GitHub action reusable workflow
+
+permissions:
+  contents: read
+  id-token: write
+
+on:
+  workflow_call:
+    secrets:
+      AD_TENANT_ID:
+        description: 'Azure Enterprise Application (client) ID'
+        required: false
+      AD_CLIENT_ID:
+        description: 'Azure Enterprise Directory (tenant) ID'
+        required: false
+      ADO_ORG_NAME:
+        description: 'Azure DevOps Organization Name'
+        required: false
+      ADO_PROJECT_NAME:
+        description: 'Azure DevOps Project name'
+        required: false
+      ADO_FEED_NAME:
+        description: 'Azure DevOps Feed name'
+        required: false
+
+env:
+  PROJ_WORK_DIR: Catalogs
+  PROJ_FILE_NAME: Catalogs.csproj
+  ENABLE_TEST: true
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        uses: danielhagos11/DevOps/dotnet-build@main
+        with:
+          proj_work_dir: ${{ env.PROJ_WORK_DIR }}
+          proj_file_name: ${{ env.PROJ_FILE_NAME }}
+          enable_test: ${{ env.ENABLE_TEST }}
