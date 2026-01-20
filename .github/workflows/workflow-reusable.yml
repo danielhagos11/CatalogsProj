@@ -22,6 +22,14 @@ on:
       ADO_FEED_NAME:
         description: 'Azure DevOps Feed name'
         required: false
+    inputs:
+      mode:
+        type: string
+        required: false
+        default: ci
+      app-name:
+        type: string
+        required: true
 
 env:
   PROJ_WORK_DIR: Catalogs
@@ -42,3 +50,17 @@ jobs:
           proj_work_dir: ${{ env.PROJ_WORK_DIR }}
           proj_file_name: ${{ env.PROJ_FILE_NAME }}
           enable_test: ${{ env.ENABLE_TEST }}
+          
+      - name: publish
+        if: inputs.mode == 'publish'
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Deploy to Azure Web App
+        if: inputs.mode == 'publish'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ inputs.app-name }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
+
+  
