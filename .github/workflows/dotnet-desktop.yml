@@ -19,3 +19,6 @@ on:
 jobs:
   workflow:
     uses: ./.github/workflows/workflow-reusable.yml
+    with:
+      mode: publish
+      app-name: test-catalog-web-api
