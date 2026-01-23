@@ -51,8 +51,10 @@ jobs:
             -o ./nupkgs \
             -p:Version=1.0.${{ github.run_number }}
 
-      - name: Push to Azure DevOps Artifacts
+      - name: Push package to Azure DevOps Artifacts
         run: |
+          export VSS_NUGET_EXTERNAL_FEED_ENDPOINTS='{"endpointCredentials":[{"endpoint":"https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json","username":"github","password":"${{ secrets.ADO_PAT }}"}]}'
           dotnet nuget push "./nupkgs/*.nupkg" \
-            --source AzureArtifacts \
+            --source "https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json" \
             --skip-duplicate
+
