@@ -34,8 +34,8 @@ jobs:
       - name: Authenticate to Azure Artifacts
         run: |
           export VSS_NUGET_EXTERNAL_FEED_ENDPOINTS='{"endpointCredentials":[{"endpoint":"https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json","username":"github","password":"${{ secrets.ADO_PAT }}"}]}'
-          dotnet restore Catalogs.sln --disable-parallel --ignore-failed-sources --no-cache --disable-package-safety-checks
-
+          export NUGET_AUDIT_MODE=off
+          dotnet restore Catalogs.sln --ignore-failed-sources
 
       - name: Restore
         run: dotnet restore Catalogs.sln
