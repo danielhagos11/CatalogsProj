@@ -33,11 +33,8 @@ jobs:
     
       - name: Authenticate to Azure Artifacts
         run: |
-          printf 'VSS_NUGET_EXTERNAL_FEED_ENDPOINTS={"endpointCredentials":[{"endpoint":"https://pkgs.dev.azure.com/%s/%s/_packaging/%s/nuget/v3/index.json","username":"github","password":"%s"}]}\n' \
-          "${{ secrets.ADO_ORG_NAME }}" \
-          "${{ secrets.ADO_PROJECT_NAME }}" \
-          "${{ secrets.ADO_FEED_NAME }}" \
-          "${{ secrets.ADO_PAT }}" >> "$GITHUB_ENV"
+          export VSS_NUGET_EXTERNAL_FEED_ENDPOINTS='{"endpointCredentials":[{"endpoint":"https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json","username":"github","password":"${{ secrets.ADO_PAT }}"}]}'
+          dotnet restore Catalogs.sln
 
 
       - name: Restore
