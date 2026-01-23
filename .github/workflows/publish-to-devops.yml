@@ -31,11 +31,18 @@ jobs:
             --password ${{ secrets.ADO_PAT }} \
             --store-password-in-clear-text
     
-      - name: Authenticate to Azure Artifacts
+      - name: Authenticate to Azure DevOps Artifacts
         run: |
-          export VSS_NUGET_EXTERNAL_FEED_ENDPOINTS='{"endpointCredentials":[{"endpoint":"https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json","username":"github","password":"${{ secrets.ADO_PAT }}"}]}'
-          export NUGET_AUDIT_MODE=off
-          dotnet restore Catalogs.sln --ignore-failed-sources
+          echo 'VSS_NUGET_EXTERNAL_FEED_ENDPOINTS={
+            "endpointCredentials": [
+              {
+                "endpoint": "https://pkgs.dev.azure.com/ORG_NAME/_packaging/ADO_FEED_NAME/nuget/v3/index.json",
+                "username": "github",
+                "password": "${{ secrets.AZURE_DEVOPS_PAT }}"
+              }
+            ]
+          }' >> $GITHUB_ENV
+
 
       - name: Restore
         run: dotnet restore Catalogs.sln
