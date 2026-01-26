@@ -33,15 +33,9 @@ jobs:
     
       - name: Authenticate to Azure DevOps Artifacts
         run: |
-          echo 'VSS_NUGET_EXTERNAL_FEED_ENDPOINTS={
-            "endpointCredentials": [
-              {
-                "endpoint": "https://pkgs.dev.azure.com/ORG_NAME/_packaging/ADO_FEED_NAME/nuget/v3/index.json",
-                "username": "github",
-                "password": "${{ secrets.AZURE_DEVOPS_PAT }}"
-              }
-            ]
-          }' >> $GITHUB_ENV
+         dotnet nuget push "nupkg/*.nupkg" \
+           --source "https://pkgs.dev.azure.com/ORG_NAME/_packaging/ADO_FEED_NAME/nuget/v3/index.json" \
+           --skip-duplicate
 
 
       - name: Restore
