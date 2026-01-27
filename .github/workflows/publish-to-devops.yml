@@ -30,9 +30,28 @@ jobs:
             --username github \
             --password ${{ secrets.AZURE_DEVOPS_PAT }} \
             --store-password-in-clear-text
+            
+      - name: Create isolated NuGet.config
+        run: |
+              cat <<EOF > NuGet.config
+              <?xml version="1.0" encoding="utf-8"?>
+              <configuration>
+                <packageSources>
+                  <clear />
+                  <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+                  <add key="AzureArtifacts" value="https://pkgs.dev.azure.com/${{ secrets.ADO_ORG_NAME }}/${{ secrets.ADO_PROJECT_NAME }}/_packaging/${{ secrets.ADO_FEED_NAME }}/nuget/v3/index.json" />
+                </packageSources>
+                <packageSourceCredentials>
+                  <AzureArtifacts>
+                    <add key="Username" value="AzureDevOps" />
+                    <add key="ClearTextPassword" value="${{ secrets.AZURE_DEVOPS_PAT }}" />
+                  </AzureArtifacts>
+                </packageSourceCredentials>
+              </configuration>
+              EOF
 
-      - name: Restore
-        run: dotnet restore --disable-parallel /p:NuGetAudit=false
+      - name: Restore (isolated)
+        run: dotnet restore --configfile NuGet.config --disable-parallel /p:NuGetAudit=false
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
