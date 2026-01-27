@@ -81,10 +81,8 @@ jobs:
 
       # 5️⃣ Publish the web app
       - name: Publish Web App
-        run: dotnet publish Catalogs/Catalogs.csproj \
-              --configuration Release \
-              --output ${{ github.workspace }}/publish \
-              --no-build
+        run: dotnet publish Catalogs/Catalogs.csproj --configuration Release --output ${{ github.workspace }}/publish --no-build
+
 
       # 6️⃣ Verify publish folder (optional but recommended)
       - name: List published files
