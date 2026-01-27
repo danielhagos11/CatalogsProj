@@ -57,10 +57,11 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack \
-          --configuration Release \
-          --no-build \
-          -o ${{ github.workspace }}/nupkg
+        run: |
+            dotnet pack Catalogs/Catalogs.csproj \
+            --configuration Release \
+            --no-build \
+            -o ${{ github.workspace }}/nupkg
 
 
       - name: Push package to Azure DevOps Artifacts
