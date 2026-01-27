@@ -55,6 +55,10 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
+        
+      - name: Ensure nupkg directory exists
+        run: mkdir -p ${{ github.workspace }}/nupkg
+
 
       - name: Pack
         run: |
@@ -66,8 +70,8 @@ jobs:
 
       - name: Push package to Azure DevOps Artifacts
         run: |
-          dotnet nuget push "nupkg/*.nupkg" \
-          --source AzureArtifacts \
-          --skip-duplicate
+          dotnet nuget push "${{ github.workspace }}/nupkg/*.nupkg" \
+           --source AzureArtifacts \
+           --skip-duplicate
 
 
