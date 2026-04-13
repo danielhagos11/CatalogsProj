@@ -19,3 +19,8 @@ on:
 jobs:
   workflow:
     uses: ./.github/workflows/workflow-reusable.yml
+    with:
+      mode: publish
+      app-name: test-catalog-web-api
+    secrets:
+      AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
