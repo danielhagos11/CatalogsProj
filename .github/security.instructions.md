@@ -1,7 +1,7 @@
 ---
 applyTo: "**/*.cs"
----
 description: This file describes the security best practices for C# code in the project.
+---
 
 # C# Security Best Practices
 
@@ -25,7 +25,7 @@ description: This file describes the security best practices for C# code in the 
 - Never hardcode secrets, passwords, connection strings, or API keys in source code.
 - Store sensitive configuration in environment variables or a secrets manager (e.g., Azure Key Vault).
 - Use HTTPS/TLS for all network communication.
-- Hash passwords using a strong algorithm (e.g., `BCrypt`, `PBKDF2`) — never store plaintext passwords.
+- Hash passwords using a strong algorithm (e.g., `Rfc2898DeriveBytes` (PBKDF2) or ASP.NET Core Identity's `PasswordHasher`) — never store plaintext passwords.
 
 ## Cryptography
 - Use well-established cryptographic libraries; do not implement custom cryptographic algorithms.
