@@ -46,7 +46,7 @@ jobs:
       - name: Run BL development standards validation
         if: steps.detect.outputs.is_dotnet == 'true'
         env:
-          VALIDATION_MODE: warn
+          VALIDATION_MODE: enforce
         run: node scripts/validate-standards.js
 
       - name: Skip non-.NET repository
