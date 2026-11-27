@@ -18,4 +18,4 @@ jobs:
   development-standards:
     uses: danielhagos11/development-standards/.github/workflows/dotnet-standards.yml@main
     with:
-      validation-mode: warn
+      validation-mode: enforce
