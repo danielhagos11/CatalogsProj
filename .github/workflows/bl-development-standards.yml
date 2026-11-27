@@ -16,6 +16,6 @@ permissions:
 
 jobs:
   development-standards:
-    uses: danielhagos11/development-standards/.github/workflows/dotnet-standards.yml@v1.0.1
+    uses: danielhagos11/development-standards/.github/workflows/dotnet-standards.yml@main
     with:
       validation-mode: warn
