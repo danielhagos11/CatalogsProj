@@ -1,0 +1,21 @@
+
+name: BL Development Standards
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  development-standards:
+    uses: danielhagos11/development-standards/.github/workflows/dotnet-standards.yml@v1
+    with:
+      validation-mode: warn
